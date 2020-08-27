@@ -1,0 +1,20 @@
+{
+  "extends": ["tslint:latest", "tslint-react"],
+  "rules": {
+    "file-header": {
+      "options": [
+        "Copyright \\d{4} CTC\\. All rights reserved.",
+        "Copyright 2019 CTC. All rights reserved.\n\nLicensed under the terms of the LICENSE file distributed with this project."
+      ]
+    },
+    "no-console": [false, "log", "error"],
+    "no-empty-interface": false,
+    "object-literal-sort-keys": false,
+    "max-classes-per-file": [true, 2],
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false,
+    "no-submodule-imports": false,
+    "no-bitwise": false,
+    "semicolon": [true, "always", "strict-bound-class-methods"]
+  }
+}

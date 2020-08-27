@@ -1,0 +1,207 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bp3-dark #root {
+  background-color: #182026; /* Dark mode */
+}
+
+.bp3-dark .theme-sensitive-bg {
+  background-color: #182026; /* Dark mode */
+}
+
+#root {
+  height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.homestack {
+  width: 100%;
+  flex-grow: 1;
+}
+
+.homestack .bp3-panel-stack-header {
+  display: none;
+}
+
+.bp3-breadcrumbs > li {
+  margin-top: 0px !important;
+}
+
+.DraftEditor-root {
+  width: 100%;
+  background:transparent !important;
+  box-shadow: 0 0 0 1px #137cbd, 0 0 0 3px rgba(19, 124, 189, 0.3), inset 0 1px 1px rgba(16, 22, 26, 0.2);
+  /* background-color: #ffffff; */
+  overflow: auto;
+  padding:10px;
+  border-radius: 3px;
+}
+
+.DraftEditor-root .paragraph + .paragraph {
+  margin-top: 10px !important;
+}
+
+.DraftEditor-root figure.md-block-image {
+  background:transparent !important;
+}
+
+.bp3-dark .DraftEditor-root .paragraph {
+  color:white;
+}
+
+.bp3-dark .DraftEditor-root h1, .bp3-dark .DraftEditor-root h2, .bp3-dark .DraftEditor-root h3, .bp3-dark .DraftEditor-root h4 {
+  color:white;
+}
+
+.bp3-dark .DraftEditor-root blockquote {
+  color:#bfccd6;
+  background-color: #2d3b47;
+}
+
+.bp3-dark .DraftEditor-root, .bp3-dark .DraftEditor-root .toolbar {
+  color:white;
+}
+
+.public-DraftEditorPlaceholder-root {
+  color: #777;
+}
+
+.bp3-dark .public-DraftEditorPlaceholder-root {
+  color: #777;
+}
+
+.fg-editor-task-description .DraftEditor-root{
+  min-height:100px;
+}
+
+.fg-editor-task-description .public-DraftEditor-content {
+  min-height:100px;
+}
+
+.fg-editor-task-comment .DraftEditor-root{
+  min-height:20px;
+}
+
+.fg-editor-task-comment .public-DraftEditor-content {
+  min-height:20px;
+}
+
+.user-context-menu-node {
+  border: 4px solid #fff;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+  background-color: #8eaec1;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+}
+
+.user-context-menu-open {
+  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2), 0 0 0 4px #f29d49;
+  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2), 0 0 0 4px #f29d49;
+}
+
+.tag-score {
+  min-width: inherit !important;
+  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2) !important; 
+}
+
+.hide-scroll-bar::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.hide-scroll-bar {
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+.bp3-select-popover .bp3-menu {
+  max-width: 400px;
+  max-height: 300px;
+  overflow: auto;
+  padding: 0;
+}
+
+.hide-numeric-input-group .bp3-input-group {
+  display: none;
+  width: 30px;
+}
+
+.tag-vertical-align .bp3-text-overflow-ellipsis{
+  display: flex;
+  align-items: center;
+}
+
+/* Credit: https://ferdychristant.com/the-world-s-most-overlooked-web-optimization-for-ios-d88c7517d520 */
+.touchscroll {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  position:relative;
+  /* height:100%; */
+}
+
+.touchscroll::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+  background-color: #181f25;
+} 
+
+.touchscroll::-webkit-scrollbar-thumb {
+  background-color: #bfccd5;
+}
+
+.board-scale-50-percent {
+  transform: scale(0.5);
+  transform-origin: top left;
+  width: 200%;
+  min-height: 190%;
+}
+
+.board-header-scale-50-percent {
+  transform: scale(0.5);
+  transform-origin: bottom left;
+  width: 200%;
+  min-height: 80px;
+}
+
+/* Drag scroll handle to be used along with ScrollBooster */
+.drag-scroll-handle {
+  cursor: grab;
+}
+
+/* Sticky DOM upon scrolling */
+.sticky-dom {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  /* z-index: 100; */
+}
+
+.column-header-sticky {
+  z-index: 11;
+  background-color: #eff0f3 !important;
+  padding: 0px 10px !important;
+  border-radius: 5px !important;
+}
+
+.column-collapsed {
+  width: 24px;
+  min-width: 24px;
+}
+
+.bp3-dark .column-header-sticky {
+  background-color: #313b43 !important;
+}

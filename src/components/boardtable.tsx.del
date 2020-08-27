@@ -1,0 +1,279 @@
+/*!
+ * Copyright 2019 CTC. All rights reserved.
+ *
+ * Licensed under the terms of the LICENSE file distributed with this project.
+ */
+
+import { Button, Switch } from "@blueprintjs/core";
+import { Cell, Column, RegionCardinality, Table, Utils } from "@blueprintjs/table";
+import _ from "lodash";
+import * as React from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import styled from "styled-components";
+import { ApplicationState } from "../store";
+import ColumnCell from "./columncell";
+
+const Container = styled.div`
+    // display: flex;
+    // flex-direction: column;
+    overflow: auto;
+`;
+
+export interface ITableReorderableExampleState {
+    // columns: JSX.Element[];
+    // data: any[];
+    // enableColumnInteractionBar?: boolean;
+    // forceRenderFlag: boolean;
+    id: string;
+    priorities: any[any];
+    priorityOrder: string[];
+    priorityIds: string[];
+    columns: any[any];
+    columnIds: any[any];
+    columnOrder: string[];
+    tasks: any[any];
+}
+
+interface IPropsFromState {
+
+}
+
+interface IPropsFromDispatch {
+
+}
+
+interface IOwnProps {
+
+}
+
+// Combine both state + dispatch props - as well as any props we want to pass - in a union type.
+type AllProps = IPropsFromState & IPropsFromDispatch & IOwnProps;
+
+const REORDERABLE_TABLE_DATA = [
+    ["A", "Apple", "Ape", "Albania", "Anchorage"],
+    ["B", "Banana", "Boa", "Brazil", "Boston"],
+    ["C", "Cranberry", "Cougar", "Croatia", "Chicago"],
+    ["D", "Dragonfruit", "Deer", "Denmark", "Denver"],
+    ["E", "Eggplant", "Elk", "Eritrea", "El Paso"],
+].map(([letter, fruit, animal, country, city]) => ({ letter, fruit, animal, country, city }));
+
+class BoardTable extends React.PureComponent<AllProps, ITableReorderableExampleState> {
+    public state: ITableReorderableExampleState = {
+        // columns: [
+        //     // these cellRenderers are only created once and then cloned on updates
+        //     <Column key="1" name="Letter" cellRenderer={this.getCellRenderer("letter")} />,
+        //     <Column key="2" name="Fruit" cellRenderer={this.getCellRenderer("fruit")} />,
+        //     <Column key="3" name="Animal" cellRenderer={this.getCellRenderer("animal")} />,
+        //     <Column key="4" name="Country" cellRenderer={this.getCellRenderer("country")} />,
+        //     <Column key="5" name="City" cellRenderer={this.getCellRenderer("city")} />,
+        // ],
+        // data: REORDERABLE_TABLE_DATA,
+        // enableColumnInteractionBar: false,
+        // forceRenderFlag: false
+        id: "",
+        priorities: undefined,
+        priorityOrder: [],
+        priorityIds: [],
+        columns: undefined,
+        columnIds: [],
+        columnOrder: [],
+        tasks: undefined,
+    };
+
+    private tableInstance: Table | null = null;
+
+    private refHandlers = {
+        table: (ref: Table) => (this.tableInstance = ref),
+    };
+
+    public onDragStart = (result: any) => {
+        // onDragStart
+    }
+
+    public onDragUpdate = (update: any) => {
+        // const { destination } = update;
+    }
+
+    public onDragEnd = (result: any) => {
+        const { destination, source, draggableId, type } = result;
+        // Check if there is destination
+        if (!destination) {
+            return;
+        }
+        // Check if the location is the same
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return;
+        }
+
+        return;
+    }
+
+    // private toggleUseInteractionBar = handleBooleanChange(enableColumnInteractionBar =>
+    //     this.setState({ enableColumnInteractionBar }),
+    // );
+
+    public componentDidMount() {
+        fetch(`http://localhost:8081/v1/board/board_11111`)
+        .then((response) => {
+            return response.json();
+        })
+        .then((json) => {
+            this.setState(json);
+        });
+    }
+
+    public componentDidUpdate(nextProps: {}, nextState: ITableReorderableExampleState) {
+        // const { enableColumnInteractionBar } = this.state;
+        // if (nextState.enableColumnInteractionBar !== enableColumnInteractionBar) {
+        //     const nextColumns = React.Children.map(this.state.columns, (column: JSX.Element) => {
+        //         return React.cloneElement(column, { enableColumnInteractionBar });
+        //     });
+        //     this.setState({ columns: nextColumns });
+        // }
+    }
+
+    public render() {
+        // const { enableColumnInteractionBar } = this.state;
+        // Build columns
+        if (!_.isEmpty(this.state.id)) {
+            const columnElements: JSX.Element[] = [];
+            // _.forEach(this.state.columns, (value, key)=>{
+
+            // })
+            _.forEach(this.state.columnOrder, (columnId: string) => {
+                const column = this.state.columns[columnId];
+                columnElements.push(
+                    <Column
+                        key={columnId}
+                        name={column.title}
+                        cellRenderer={this.getCellRenderer(columnId)}
+                    />,
+                );
+            });
+
+            const numRows = this.state.priorityOrder.length;
+            console.log(numRows, "render numRows");
+            return (
+                // <Container>
+                //     <Table
+                //         enableColumnReordering={true}
+                //         enableColumnResizing={false}
+                //         enableRowReordering={true}
+                //         enableRowResizing={false}
+                //         numRows={numRows}
+                //         // onColumnsReordered={this.handleColumnsReordered}
+                //         // onRowsReordered={this.handleRowsReordered}
+                //         enableColumnInteractionBar={false}
+                //         enableRowHeader={true}
+                //         enableMultipleSelection={true}
+                //         selectionModes={[RegionCardinality.FULL_ROWS, RegionCardinality.CELLS]}
+                //     >
+                //         {columnElements}
+                //     </Table>
+                // </Container>
+                <DragDropContext
+                    onDragStart={this.onDragStart}
+                    onDragUpdate={this.onDragUpdate}
+                    onDragEnd={this.onDragEnd}
+                >
+                    <Table
+                        ref={this.refHandlers.table}
+                        enableColumnReordering={true}
+                        enableColumnResizing={true}
+                        enableRowReordering={true}
+                        enableRowResizing={false}
+                        numRows={numRows}
+                        defaultColumnWidth={335}
+                        defaultRowHeight={500}
+                        // onColumnsReordered={this.handleColumnsReordered}
+                        // onRowsReordered={this.handleRowsReordered}
+                        enableColumnInteractionBar={false}
+                        enableRowHeader={true}
+                        enableMultipleSelection={true}
+                        selectionModes={[RegionCardinality.FULL_ROWS]}
+                    >
+                        {columnElements}
+                    </Table>
+                    <Button onClick={this.handleResizeRowsByApproxHeightButtonClick}>Hi</Button>
+                </DragDropContext>
+            );
+        }
+        return "";
+    }
+
+    private getCellRenderer(columnId: string) {
+        console.log(columnId, "columnId");
+        // return (row: number) => <Cell>{this.state.data[row][key]}</Cell>;
+        return (row: number) => {
+            const column = this.state.columns[columnId];
+            const priorityId = this.state.priorityOrder[row];
+            const priority = this.state.priorities[priorityId];
+            const taskIds: string[] = _.intersection(priority.taskIds, column.taskIds);
+            return (
+                <Cell truncated={true} interactive={true} style={{width: "300px", height: "300px"}}>
+                    <ColumnCell
+                        key={columnId}
+                        column={column}
+                        priority={priority}
+                        tasks={this.state.tasks}
+                        taskIds={taskIds}
+                        index={_.indexOf(this.state.columnOrder, columnId)}
+                    />
+                </Cell>
+            );
+        };
+    }
+
+    private handleResizeRowsByApproxHeightButtonClick = () => {
+        // this.tableInstance!.resizeRowsByApproximateHeight(this.getCellText);
+        this.tableInstance!.resizeRowsByTallestCell();
+    }
+
+    // private getCellText = (rowIndex: number, columnIndex: number) => {
+    //     const content = this.store.get(rowIndex, columnIndex);
+    //     return this.state.cellContent === CellContent.LARGE_JSON ? JSON.stringify(content) : content;
+    // };
+
+    // private handleColumnsReordered = (oldIndex: number, newIndex: number, length: number) => {
+    //     if (oldIndex === newIndex) {
+    //         return;
+    //     }
+    //     const nextChildren = Utils.reorderArray(this.state.columns, oldIndex, newIndex, length);
+    //     this.setState({ columns: nextChildren });
+    // };
+
+    // private handleRowsReordered = (oldIndex: number, newIndex: number, length: number) => {
+    //     if (oldIndex === newIndex) {
+    //         return;
+    //     }
+    //     const nextChildren = Utils.reorderArray(this.state.columns, oldIndex, newIndex, length);
+    //     this.setState({
+    //         columns: nextChildren,
+    //         data: Utils.reorderArray(this.state.data, oldIndex, newIndex, length),
+    //     });
+    // }
+}
+
+// It's usually good practice to only include one context at a time in a connected component.
+// Although if necessary, you can always include multiple contexts. Just make sure to
+// separate them from each other to prevent prop conflicts.
+const mapStateToProps = ({ navbar }: ApplicationState) => ({
+
+});
+
+// Mapping our action dispatcher to props is especially useful when creating container components.
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+
+});
+
+// Now let's connect our component!
+// With redux v4's improved typings, we can finally omit generics here.
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(BoardTable);

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment # Type of the kubernetes resource
+metadata:
+  name: nextjs-frontend # Name of the Kubernetes resource
+  labels:
+    app: nextjs-frontend
+spec:
+  replicas: 2 # Number of pods to run at any given time
+  selector:
+    matchLabels:
+      app: nextjs-frontend # This deployment applies to any Pods matching the specified label
+  template: # This deployment will create a set of pods using the configurations in this template
+    metadata:
+      labels: # The labels that will be applied to all of the pods in this deployment
+        app: nextjs-frontend
+    spec: # Spec for the container which will run in the Pod
+      containers:
+        - name: nextjs-frontend
+          image: quanghuy9289/nextjs-frontend:1.0.5 # The image we are getting from dockerhub
+          imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
+          ports:
+            - name: http
+              containerPort: 3000 # Should match the port number that the Go application listens on
+          env:
+            - name: API_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: frontend-config
+                  key: API_ENDPOINT
+          # envFrom:
+          #   - secretRef:
+          #       name: postgres-secret # Name of the secret environmental variable file to load

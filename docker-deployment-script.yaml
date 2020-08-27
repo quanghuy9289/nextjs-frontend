@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactecommerce-deployment
+  namespace: default
+  labels:
+    app: reactecommerce
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: reactecommerce
+  template:
+    metadata:
+      labels:
+        app: reactecommerce
+    spec:
+      terminationGracePeriodSeconds: 30
+      # restartPolicy: Always
+      containers:
+      - name: reactecommerce-container
+        image: reactecommerce
+        resources: {}
+        imagePullPolicy: IfNotPresent

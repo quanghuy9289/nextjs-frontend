@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: reactecommerce-app-service
+  namespace: default
+  labels:
+    app: reactecommerce-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 8007
+      targetPort: 80
+  selector:
+    app: reactecommerce
+  type: LoadBalancer
+  externalIPs: ["192.168.64.2"]
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+status:
+  loadBalancer: {}

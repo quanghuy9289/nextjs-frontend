@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ctb-ingress
+  namespace: default
+  annotations:
+    # nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: ctb.com
+      http:
+        paths:
+          - path:
+            # - path:
+            backend:
+              serviceName: nextjs-frontend
+              servicePort: 3000
+    - host: api.ctb.com
+      http:
+        paths:
+          - path:
+            # - path:
+            backend:
+              serviceName: go-api
+              servicePort: 7777
+    # - host: ctb.com
+    #   http:
+    #     paths:
+    #       - path: /api($|/)(.*)
+    #         backend:
+    #           serviceName: go-api
+    #           servicePort: 7777
+    #       - path: ($|/)(.*)
+    #         backend:
+    #           serviceName: nextjs-frontend
+    #           servicePort: 3000

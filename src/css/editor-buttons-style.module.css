@@ -1,0 +1,43 @@
+.buttonWrapper {
+    display: inline-block;
+}
+
+.button {
+    /* background: #fbfbfb;
+    color: #888;
+    font-size: 18px;
+    border: 0;
+    padding-top: 5px;
+    vertical-align: bottom;
+    height: 34px;
+    width: 36px; */
+    background: #000;
+    color: #fff;
+    font-size: 19px;
+    border: 0;
+    padding-top: 3px;
+    vertical-align: bottom;
+    height: 34px;
+    width: 36px;
+    border-radius: 4px;
+}
+
+.button svg {
+    fill: #fff;
+}
+
+.button:hover, .button:focus {
+    /* background: #f3f3f3;
+    outline: 0; */
+    background: #777;
+    outline: 0;
+}
+
+.active {
+    background: #000;
+    color: #fff;
+}
+
+.active svg {
+    fill: #fff;
+}

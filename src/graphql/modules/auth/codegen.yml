@@ -1,0 +1,14 @@
+overwrite: true
+schema: http://localhost:7777/auth/query
+generates:
+  ./src/graphql/modules/auth/models.tsx:
+    plugins:
+      - Add: "/* tslint disabled */"
+      - "typescript"
+      - typescript-operations
+    config:
+      declarationKind: 
+        type: 'interface'
+    ./src/graphql/modules/auth/schema.json:
+      plugins:
+        - "introspection"

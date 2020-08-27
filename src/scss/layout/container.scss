@@ -1,0 +1,18 @@
+@mixin themable($theme-name, $theme-map) {
+    body#{$theme-name} {
+        .image-thumb {
+            li {
+                border-color: map-get($theme-map, border-color-primary) !important;
+                background-color: $gray-color;
+            }
+        }
+
+        .theme-sensitive-bg {
+            background-color: map-get($theme-map, color-secondary);
+            height: 100vh;
+        }
+    }
+}
+
+@include themable('', $light-variable);
+@include themable($dark-name, $dark-variable);

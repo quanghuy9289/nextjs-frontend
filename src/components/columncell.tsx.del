@@ -1,0 +1,166 @@
+/*!
+ * Copyright 2019 CTC. All rights reserved.
+ *
+ * Licensed under the terms of the LICENSE file distributed with this project.
+ */
+
+import { Button, Callout, Card, Classes, Colors, Elevation } from "@blueprintjs/core";
+import _ from "lodash";
+import React from "react";
+import { Draggable, Droppable, DroppableStateSnapshot } from "react-beautiful-dnd";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import styled from "styled-components";
+import { ApplicationState } from "../store";
+import Task from "./task";
+
+interface InnerListProps {
+    // tasks: any[number],
+    tasks: any[any];
+    taskIds: string[];
+}
+
+const Container = styled.div`
+    margin: 8px;
+    ${"" /* border: 1px solid lightgrey;
+    border-radius: 30px; */}
+    width: 300px;
+    min-width: 300px;
+    ${"" /* display: flex;
+    flex-direction: column; */}
+    ${"" /* background-color: transparent; */}
+    height: 0%;
+`;
+// const Title = styled.h3`
+//     padding: 8px;
+// `;
+const TaskList = styled.div<DroppableStateSnapshot>`
+    padding: 8px;
+    transition: background-color 0.2s ease;
+    ${"" /* background-color: ${props => (props.isDraggingOver ? 'lightgrey' : 'inherit')}; */}
+    flex-grow: 1;
+    min-height: 100px;
+`;
+
+class InnerList extends React.PureComponent<InnerListProps, {}> {
+    // PureComponent do the shouldComponentUpdate automatically
+    // shouldComponentUpdate(nextProps) {
+    //     if (nextProps.tasks === this.props.tasks) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
+    public render() {
+        return _.map(this.props.taskIds, (taskId: string) => {
+            const task = this.props.tasks[taskId];
+            const index = _.indexOf(this.props.tasks, task);
+            return (
+                <Task
+                    key={task.id}
+                    task={task}
+                    index={index}
+                    priority={null}
+                />
+            );
+        });
+        // return this.props.tasks.map((task:any, index:number)=>(
+        //     <Task
+        //         key={task.id}
+        //         task={task}
+        //         index={index}
+        //     />
+        // ));
+    }
+}
+
+interface IPropsFromState {
+
+}
+
+interface IPropsFromDispatch {
+
+}
+
+interface IOwnProps {
+    column: any;
+    priority: any;
+    tasks: any[any];
+    taskIds: string[];
+    index: number;
+}
+
+// Combine both state + dispatch props - as well as any props we want to pass - in a union type.
+type AllProps = IPropsFromState & IPropsFromDispatch & IOwnProps;
+
+class ColumnCell extends React.Component<AllProps> {
+    public render() {
+        // console.log(this.props.column.id, "???");
+        return (
+            // <Draggable
+            //     draggableId={this.props.column.id}
+            //     index = {this.props.index}
+            // >
+            //     {(provided) => (
+                    <Container
+                        // {...provided.draggableProps}
+                        // {...provided.dragHandleProps}
+                        // ref = {provided.innerRef}
+                    >
+                        {/* <Callout
+                            // intent="success"
+                            icon={null}
+                            style={{display: 'flex', flexDirection: 'column'}}
+                            className={Classes.ELEVATION_1}
+                            // interactive={false}
+                            // elevation={Elevation.ONE}
+                        > */}
+                            {/* <h3 className={Classes.HEADING}>
+                                {this.props.column.title}
+                            </h3> */}
+                            <Droppable
+                                droppableId={this.props.column.id + this.props.priority.id}
+                                // type = {this.props.column.id == 'column-3' ? 'done' : 'active'}
+                                type="task"
+                            >
+                                {(providedDrop, snapshot) => (
+                                    <TaskList
+                                        // droppableProps these props need to be applied to
+                                        // the component that we want to drop in response to user input
+                                        {...providedDrop.droppableProps}
+                                        ref={providedDrop.innerRef}
+                                        isDraggingOver={snapshot.isDraggingOver}
+                                    >
+                                        <InnerList
+                                            tasks={this.props.tasks}
+                                            taskIds={this.props.taskIds}
+                                        />
+                                        {providedDrop.placeholder}
+                                    </TaskList>
+                                )}
+                            </Droppable>
+                        {/* </Callout> */}
+                    </Container>
+                // )}
+            // </Draggable>
+        );
+    }
+}
+
+// It's usually good practice to only include one context at a time in a connected component.
+// Although if necessary, you can always include multiple contexts. Just make sure to
+// separate them from each other to prevent prop conflicts.
+const mapStateToProps = ({ navbar }: ApplicationState) => ({
+
+});
+
+// Mapping our action dispatcher to props is especially useful when creating container components.
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+
+});
+
+// Now let's connect our component!
+// With redux v4's improved typings, we can finally omit generics here.
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ColumnCell);

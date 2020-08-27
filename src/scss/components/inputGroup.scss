@@ -1,0 +1,44 @@
+
+@mixin themable($theme-name, $theme-map) {
+    body#{$theme-name} {
+        .bp3-input-group {
+            .bp3-input {
+                border: 1px solid map-get($theme-map, border-color-primary);
+                background: map-get($theme-map, color-secondary);
+                border-radius: 4px;
+                box-shadow: none;
+                color: map-get($theme-map, color-contrast-primary);
+                height: 32px;
+
+                &:hover, &:focus {
+                    outline:none;
+                    box-shadow: map-get($theme-map, box-shadow-1st);
+                }
+            }
+
+            .bp3-input-action {
+                .bp3-button {
+                    min-height: 24px;
+                }
+            }
+
+            &.bp3-icon-search{
+                .bp3-input-action {
+                    border: 1px solid map-get($theme-map, border-color-primary);
+                    background: map-get($theme-map, bg-standard-1st);
+                    border-top-right-radius: 4px;
+                    border-bottom-right-radius: 4px;
+                }
+
+                .bp3-button.bp3-minimal:hover {
+                    box-shadow: none;
+                    background: transparent;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+@include themable('', $light-variable);
+@include themable($dark-name, $dark-variable);
