@@ -12,6 +12,7 @@ pipeline {
                 }
             }
            steps {
+               sh "chown -R 986:979 /.npm"
                sh "npm install -g yarn"
                // Build the app.
                sh 'yarn install'
