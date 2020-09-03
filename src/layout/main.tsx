@@ -22,9 +22,9 @@ import { IProject } from "../store/projects/types";
 import { PrimerClasses } from "../types/primercss";
 
 const Container = styled.div`
-  // display: flex;
-  // flex-direction: column;
-  // height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 // Separate state props + dispatch props to their own interfaces.
@@ -89,8 +89,9 @@ class MainLayout extends React.PureComponent<AllProps> {
             <div className={Classes.DIALOG_BODY}>
               <p>
                 <strong>
-                  Data integration is the seminal problem of the digital age. For over ten years, we’ve helped the
-                  world’s premier organizations rise to the challenge.
+                  {
+                    "Data integration is the seminal problem of the digital age. For over ten years, we’ve helped the world’s premier organizations rise to the challenge. "
+                  }
                 </strong>
               </p>
               <p>
