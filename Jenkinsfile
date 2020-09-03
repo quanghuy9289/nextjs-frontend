@@ -7,12 +7,12 @@ pipeline {
    }
    environment {
        registry = "quanghuy9289/nextjs-frontend"
-       GOCACHE = "/tmp"
+       environment { HOME="." }
    }
    stages {
        stage('Build') {
            steps {
-               sh "npm install -g yarn"
+               sh "npm install -g yarn --force"
                // Build the app.
                sh 'yarn install'
            }
