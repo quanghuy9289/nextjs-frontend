@@ -8,6 +8,7 @@ pipeline {
            agent {
                 docker {
                     image 'node:14.8'
+                    args '-u 0:0'
                 }
            }
            steps {
@@ -20,6 +21,7 @@ pipeline {
            agent {
                 docker {
                     image 'node:14.8'
+                    args '-u 0:0'
                 }
            }
            steps {
