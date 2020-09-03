@@ -3,6 +3,7 @@ pipeline {
         docker {
             image 'node:14.8'
             args '-u 0:0'
+            args '-v $HOME/.docker:/root/.docker'
         }
    }
    environment {
