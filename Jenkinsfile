@@ -7,7 +7,6 @@ pipeline {
    }
    environment {
        registry = "quanghuy9289/nextjs-frontend"
-       HOME = "."
    }
    stages {
        stage('Build') {
