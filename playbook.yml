@@ -1,0 +1,8 @@
+- hosts: localhost
+  tasks:
+    - name: Deploy k8s application
+      k8s:
+        state: present
+        src: nextjs-frontend-deployment.yaml
+        validate_certs: no
+        namespace: default
