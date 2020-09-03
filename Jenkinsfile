@@ -1,5 +1,9 @@
 pipeline {
-   agent any
+   agent {
+        docker {
+            image 'node:14.8' 
+        }
+   }
    environment {
        registry = "quanghuy9289/nextjs-frontend"
        GOCACHE = "/tmp"
