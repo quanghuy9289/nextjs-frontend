@@ -16,7 +16,7 @@ spec:
     spec: # Spec for the container which will run in the Pod
       containers:
         - name: nextjs-frontend
-          image: quanghuy9289/nextjs-frontend:1.0.5 # The image we are getting from dockerhub
+          image: quanghuy9289/nextjs-frontend:1.0.6 # The image we are getting from dockerhub
           imagePullPolicy: IfNotPresent # If we have not pulled it before, get it from dockerhub
           ports:
             - name: http
