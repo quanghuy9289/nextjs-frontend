@@ -47,7 +47,7 @@ interface IPropsFromDispatch {
 // type AllProps = IPropsFromState & RouteComponentProps<{}> & IConnectedReduxProps;
 type AllProps = IPropsFromState & IPropsFromDispatch;
 
-class MainLayout extends React.PureComponent<AllProps> {
+class MainLayout extends React.PureComponent<AllProps | any> {
   public componentDidMount() {
     this.switchTheme(this.props.isUsingDarkTheme);
   }
